@@ -1,9 +1,19 @@
 # prometheus-asb-installer
 
-`MINISHIFT_ENABLE_EXPERIMENTAL=y minishift start --openshift-version=v3.7.0-rc.0 --memory 4GB --service-catalog --extra-clusterup-flags "--loglevel 1 --service-catalog"`
+Install the minishift addon for ansible-service-broker: 
+- Clone https://github.com/minishift/minishift-addons
+- cd add-ons
+- minishift install ansible-service-broker
+- minishift enable ansible-service-broker
+- minishift enable admin-user
+- make sure that the registry-route addon is disabled
 
-Follow the directions in the ansible service broker README.md : https://github.com/openshift/ansible-service-broker/blob/master/README.md
 
-`wget https://raw.githubusercontent.com/openshift/ansible-service-broker/master/scripts/run_latest_build.sh`
-`chmod +x run_latest_build.sh`<br>
-`ORIGIN_VERSION=v3.7.0-rc.0 ./run_latest_build.sh`
+`
+MINISHIFT_ENABLE_EXPERIMENTAL=y minishift start --openshift-version=v3.7.0 --iso-url centos --memory 4GB --service-catalog --extra-clusterup-flags "--loglevel 1"
+
+eval $(minishift docker-env)
+
+docker login -u developer -p $(oc whoami -t) $(minishift openshift registry)
+
+`

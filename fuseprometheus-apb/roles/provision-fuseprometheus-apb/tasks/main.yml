@@ -1,0 +1,75 @@
+##############################################################################
+## Provision fuseprometheus
+## This role executes much of the needed functionality to provision an
+## application using an Ansible Playbook Bundle.  Included in the comments
+## below are some sample resources for getting started deploying an application
+## to OpenShift.
+##############################################################################
+
+
+##############################################################################
+## An OpenShift Origin deployment configuration provides a replication
+## controller, spins up pods, and also provides the ability to transition from
+## one deployment of an image to a new one.
+## https://docs.openshift.org/latest/architecture/core_concepts/deployments.html#deployments-and-deployment-configurations
+##############################################################################
+- name: create deployment config
+  openshift_v1_deployment_config:
+    name: fuseprometheus
+    namespace: '{{ namespace }}'
+    labels:
+      app: fuseprometheus
+      service: fuseprometheus
+    replicas: 1
+    selector:
+      app: fuseprometheus
+      service: fuseprometheus
+    spec_template_metadata_labels:
+      app: fuseprometheus
+      service: fuseprometheus
+    containers:
+    - env:
+      image: docker.io/openshift/prometheus:v2.0.0-dev # replace with your application image
+      name: fuseprometheus
+      ports:
+      - container_port: 9090
+        protocol: TCP
+
+
+##############################################################################
+## A Kubernetes service serves as an internal load balancer.  It identifies a
+## set of replicated pods in order to proxy the connections it receives to them.
+## https://docs.openshift.org/latest/architecture/core_concepts/pods_and_services.html#services
+##############################################################################
+- name: create fuseprometheus service
+  k8s_v1_service:
+    name: fuseprometheus
+    namespace: '{{ namespace }}'
+    labels:
+      app: fuseprometheus
+      service: fuseprometheus
+    selector:
+      app: fuseprometheus
+      service: fuseprometheus
+    ports:
+      - name: web
+        port: 80
+        target_port: 9090
+
+##############################################################################
+## An OpenShift Origin route exposes a service at a host name, so that external
+## clients can reach it by name. Each route consists of a name, a service
+## selector, and an optional security configuration.
+## https://docs.openshift.org/latest/architecture/core_concepts/routes.html
+##############################################################################
+- name: create fuseprometheus route
+  openshift_v1_route:
+    name: fuseprometheus
+    namespace: '{{ namespace }}'
+    labels:
+      app: fuseprometheus
+      service: fuseprometheus
+    to_name: fuseprometheus
+    spec_port_target_port: web
+
+
