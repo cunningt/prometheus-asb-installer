@@ -47,12 +47,15 @@ alias apb='docker run --rm --privileged -v $PWD:/mnt -v $HOME/.kube:/.kube -v /v
 ``
 cd prometheus-apb
 ``
+
 ``
 apb prepare
 ``
+
 ``
 apb build
 ``
+
 ``
 apb push
 ``
