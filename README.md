@@ -42,9 +42,18 @@ https://github.com/openshift/ansible-service-broker#deploy-an-openshift-origin-c
 
 ``
 alias apb='docker run --rm --privileged -v $PWD:/mnt -v $HOME/.kube:/.kube -v /var/run/docker.sock:/var/run/docker.sock -u $UID docker.io/ansibleplaybookbundle/apb-tools'
+``
+
+``
 cd prometheus-apb
+``
+``
 apb prepare
+``
+``
 apb build
+``
+``
 apb push
 ``
 
