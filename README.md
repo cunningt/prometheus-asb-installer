@@ -50,7 +50,8 @@ If you log in to minishift console, you should now see a Prometheus (APB) as an 
 
 ## Running on CDK
 
-Make sure to start CDK with --service-catalog
+Make sure to start CDK with --service-catalog.
+
 Follow the directions here to install the Ansible Service Broker:
 https://github.com/openshift/ansible-service-broker#deploy-an-openshift-origin-cluster-with-the-ansible-service-broker
 
