@@ -9,7 +9,8 @@ Install the minishift addon for ansible-service-broker:
 - make sure that the registry-route addon is disabled
 
 
-##Running on Minishift
+## Running on Minishift
+
 ``
 MINISHIFT_ENABLE_EXPERIMENTAL=y minishift start --openshift-version=v3.7.0 --iso-url centos --memory 4GB --service-catalog --extra-clusterup-flags "--loglevel 1"
 
@@ -33,7 +34,7 @@ apb-docker-run.sh push
 If you log in to minishift console, you should now see a Prometheus (APB) as an option to install.
 
 
-##Running on CDK
+## Running on CDK
 
 Make sure to start CDK with --service-catalog
 Follow the directions here to install the Ansible Service Broker:
