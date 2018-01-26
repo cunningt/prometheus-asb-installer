@@ -1,14 +1,30 @@
 # prometheus-asb-installer
 
-`MINISHIFT_ENABLE_EXPERIMENTAL=y minishift start --openshift-version=v3.7.0-rc.0 --memory 4GB --service-catalog --extra-clusterup-flags "--loglevel 1 --service-catalog"`
+Install the minishift addon for ansible-service-broker: 
+- Clone https://github.com/minishift/minishift-addons
+- cd add-ons
+- minishift install ansible-service-broker
+- minishift enable ansible-service-broker
+- minishift enable admin-user
+- make sure that the registry-route addon is disabled
 
-Follow the directions in the ansible service broker README.md : https://github.com/openshift/ansible-service-broker/blob/master/README.md
+`
+MINISHIFT_ENABLE_EXPERIMENTAL=y minishift start --openshift-version=v3.7.0 --iso-url centos --memory 4GB --service-catalog --extra-clusterup-flags "--loglevel 1"
 
-`wget https://raw.githubusercontent.com/openshift/ansible-service-broker/master/scripts/run_latest_build.sh`
-`chmod +x run_latest_build.sh`<br>
-`ORIGIN_VERSION=v3.7.0-rc.0 ./run_latest_build.sh`
+eval $(minishift docker-env)
 
+docker login -u developer -p $(oc whoami -t) $(minishift openshift registry)
 
-# Things to read up on
+cd prometheus-apb
 
-https://github.com/ansibleplaybookbundle/ansible-playbook-bundle/blob/master/docs/getting_started.md
+If using minishift, you need to use this script :
+
+https://github.com/eriknelson/ansible-playbook-bundle/blob/3e872a10ba26d9e8377eed0a7eb1bee7de51b340/scripts/apb-docker-run.sh
+
+apb-docker-run.sh prepare
+apb-docker-run.sh build
+apb-docker-run.sh push
+
+If you log in to minishift console, you should now see a Prometheus (APB) as an option to install.
+
+`

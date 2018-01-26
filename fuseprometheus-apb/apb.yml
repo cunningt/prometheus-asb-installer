@@ -1,0 +1,18 @@
+version: 1.4
+name: fuseprometheus-apb
+description: APB to install Prometheus for use by Fuse
+bindable: False
+async: optional
+metadata:
+  displayName: Prometheus (APB)
+  longDescription: An APB which deploys Prometheus for use with Fuse
+  documentationUrl: https://github.com/prometheus/
+  imageUrl: https://github.com/prometheus/docs/blob/master/static/prometheus_logo.png?raw=true
+  dependencies: [ 'docker.io/openshift/prometheus:v2.0.0-dev', 'docker.io/openshift/oauth-proxy:v1.0.0' ]
+  providerDisplayName: "Red Hat, Inc."
+plans:
+  - name: default
+    description: This default plan deploys Prometheus for use by Fuse fuseprometheus-apb
+    free: True
+    metadata: {}
+    parameters: []
