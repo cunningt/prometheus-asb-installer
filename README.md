@@ -16,4 +16,16 @@ eval $(minishift docker-env)
 
 docker login -u developer -p $(oc whoami -t) $(minishift openshift registry)
 
+cd prometheus-apb
+
+If using minishift, you need to use this script :
+
+https://github.com/eriknelson/ansible-playbook-bundle/blob/3e872a10ba26d9e8377eed0a7eb1bee7de51b340/scripts/apb-docker-run.sh
+
+apb-docker-run.sh prepare
+apb-docker-run.sh build
+apb-docker-run.sh push
+
+If you log in to minishift console, you should now see a Prometheus (APB) as an option to install.
+
 `

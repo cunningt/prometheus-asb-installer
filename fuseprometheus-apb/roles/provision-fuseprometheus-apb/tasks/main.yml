@@ -55,6 +55,20 @@
       - name: web
         port: 80
         target_port: 9090
+		
+ - name: create alerts service
+   k8s_v1_service:
+     name: alerts
+	 namespace: '{{ namespace }}'
+     labels:
+       app: alerts
+       service: alerts
+     selector:
+       app: fuseprometheus
+     ports:
+       - name: web
+	     port: 443
+         target_port: 9443
 
 ##############################################################################
 ## An OpenShift Origin route exposes a service at a host name, so that external
@@ -72,4 +86,13 @@
     to_name: fuseprometheus
     spec_port_target_port: web
 
+- name: create alerts route
+  openshift_v1_route:
+    name: alerts
+    namespace: '{{ namespace }}'
+    labels:
+      app: alerts
+      service: alerts
+    to_name: alerts
+    spec_port_target_port: web
 

@@ -1,4 +1,4 @@
-version: 1.3
+version: 1.4
 name: fuseprometheus-apb
 description: APB to install Prometheus for use by Fuse
 bindable: False
