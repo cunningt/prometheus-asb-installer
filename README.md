@@ -13,11 +13,17 @@ Install the minishift addon for ansible-service-broker:
 
 ``
 MINISHIFT_ENABLE_EXPERIMENTAL=y minishift start --openshift-version=v3.7.0 --iso-url centos --memory 4GB --service-catalog --extra-clusterup-flags "--loglevel 1"
+``
 
+``
 eval $(minishift docker-env)
+``
 
+``
 docker login -u developer -p $(oc whoami -t) $(minishift openshift registry)
+``
 
+``
 cd prometheus-apb
 ``
 
@@ -27,7 +33,13 @@ https://github.com/eriknelson/ansible-playbook-bundle/blob/3e872a10ba26d9e8377ee
 
 ``
 apb-docker-run.sh prepare
+``
+
+``
 apb-docker-run.sh build
+``
+
+``
 apb-docker-run.sh push
 ``
 
