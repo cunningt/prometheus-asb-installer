@@ -3,7 +3,7 @@
 
 ## Running on Minishift
 
-###Install the minishift addon for ansible-service-broker: 
+### Install the minishift addon for ansible-service-broker: 
 - Clone https://github.com/minishift/minishift-addons
 - cd add-ons
 - minishift install ansible-service-broker
@@ -12,7 +12,7 @@
 - make sure that the registry-route addon is disabled
 
 
-
+### Start Minishift and install the APB
 ``
 MINISHIFT_ENABLE_EXPERIMENTAL=y minishift start --openshift-version=v3.7.0 --iso-url centos --memory 4GB --service-catalog --extra-clusterup-flags "--loglevel 1"
 ``
@@ -54,9 +54,12 @@ Make sure to start CDK with --service-catalog
 Follow the directions here to install the Ansible Service Broker:
 https://github.com/openshift/ansible-service-broker#deploy-an-openshift-origin-cluster-with-the-ansible-service-broker
 
+### Create an alias for the APB tool
 ``
 alias apb='docker run --rm --privileged -v $PWD:/mnt -v $HOME/.kube:/.kube -v /var/run/docker.sock:/var/run/docker.sock -u $UID docker.io/ansibleplaybookbundle/apb-tools'
 ``
+
+### Install the APB
 
 ``
 cd prometheus-apb
